@@ -40,8 +40,7 @@ int procurar_valor(const std::vector<int> vet, int x) {
 int procurar_valor_apartir(std::vector<int> vet, int value, int inicial_position) {
     for (int i = inicial_position; i < (int) vet.size(); i++) 
         if(vet[i] == value) 
-            return i;
-        
+            return i;        
     return -1;
 }
 
