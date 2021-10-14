@@ -40,8 +40,7 @@ int procurar_valor(const std::vector<int> vet, int x) {
 int procurar_valor_apartir(std::vector<int> vet, int value, int inicial_position) {
     for (int i = inicial_position; i < (int) vet.size(); i++) 
         if(vet[i] == value) 
-            return i;
-        
+            return i;        
     return -1;
 }
 
@@ -231,15 +230,15 @@ void qual_metade_eh_mais_stressada_teste() {
 
 int main () {
     
-//  existe_teste();    
-//  contar_teste();
-//  procurar_valor_teste();
-//  procurar_valor_apartir_teste();
+existe_teste();    
+contar_teste();
+procurar_valor_teste();
+procurar_valor_apartir_teste();
 
-//  procurar_menor_teste();
-//  procurar_menor_pos_teste();
-//  procurar_menor_pos_apartir_teste();
-// procurar_melhor_pos_se_teste();
+procurar_menor_teste();
+procurar_menor_pos_teste();
+procurar_menor_pos_apartir_teste();
+procurar_melhor_pos_se_teste();
 
 std::vector<int> vet = {-2, 2, 4, -8}; 
 
