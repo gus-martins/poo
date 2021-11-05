@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "mingw32",
+            "includePath": [
+                "${default}"
+            ],
+            "compilerPath": "C:/mingw32/bin/g++.exe",
+            "cStandard": "gnu11",
+            "intelliSenseMode": "windows-gcc-x86"
+        }
+    ],
+    "version": 4
+}
