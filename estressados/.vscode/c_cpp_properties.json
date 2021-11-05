@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${default}"
+                "${default}",
+                "${workspaceFolder}/bloco II"
             ],
             "cStandard": "c17",
             "intelliSenseMode": "windows-msvc-x64",

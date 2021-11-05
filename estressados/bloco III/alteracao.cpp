@@ -31,22 +31,19 @@ vector<int> dance(vector<int> vet) {
         }
         
     }
-    // for (size_t i = 0; i < vet.size(); i++)
-    // {
-    //     if (abs(vet[i]) == abs(vet[i + 1])) 
-    //     {
-    //             dance(vet);
-    //     }
-    // }
+     for (size_t i = 0; i < vet.size(); i++)
+     {
+        if (abs(vet[i]) == abs(vet[i + 1])) 
+        {
+                dance(vet);
+        }
+     }
         
 
     return vet;
 }
 
-void dance_test() {
-    cout << "dance_test" << endl;
-    testar(dance({1, -1, 2, 3, -3, 2, 4, 5, 6, 10, 50, -50, -10}), {2, 2, 4, 5, 6, 10, -10});
-}
+
 
 
 int main () {
@@ -59,5 +56,4 @@ int main () {
     insert(vet, 2, 10);
     cout << "vetor apos inserir\n" << vet << endl;
 
-    dance_test();
 }
