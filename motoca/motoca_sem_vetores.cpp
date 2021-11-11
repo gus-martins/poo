@@ -32,13 +32,14 @@ struct Motoca
         pessoa {nullptr}, tempo { 0 }, potencia {pot} {
     }
 
-    void inserir_pessoa(Pessoa * p) {
+    bool inserir_pessoa(Pessoa * p) {
         if (this -> pessoa != nullptr) 
         {
             cout << "motoca ocupada" << endl;
-            return;
+            return false;
         }
         this -> pessoa = p;
+        return true;
     }
 
     Pessoa * remover_pessoa() {
@@ -104,7 +105,21 @@ int main() {
         } else if (cmd == "show") 
         {
             cout << motoca << endl;
-        } else 
+        } else if (cmd == "inserir")
+        {
+            string nome {};
+            int idade {};
+            ss << nome << idade;
+            Pessoa * pessoa = new Pessoa(nome, idade);
+            if (!motoca.inserir_pessoa(pessoa))
+                delete pessoa;
+        }else if (cmd == "retirar") 
+        {
+            Pessoa * pessoa = motoca.remover_pessoa();
+            if (pessoa != nullptr) {
+                delete pessoa;
+            }
+        }else 
             cout << "comando nao existe" << endl;
         
     }
