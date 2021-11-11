@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -26,8 +27,9 @@ struct Motoca
 {
     Pessoa * pessoa; //agregação
     int tempo;
-    Motoca():
-        pessoa {nullptr}, tempo { 0 } {
+    int potencia;
+    Motoca(int pot):
+        pessoa {nullptr}, tempo { 0 }, potencia {pot} {
     }
 
     void inserir_pessoa(Pessoa * p) {
@@ -43,6 +45,10 @@ struct Motoca
         Pessoa * p = this -> pessoa;
         this -> pessoa = nullptr;
         return p;
+    }
+
+    string buzinar() {
+        return "p" + string(this -> potencia, 'e') + "m";
     }
 
     void comprar_tempo(int tempo) {
@@ -66,23 +72,41 @@ struct Motoca
         this -> tempo -= tempo;
     }
 
+    
+
     friend ostream& operator<<(ostream& os, Motoca& m) 
     {
-        os << "[" << *m .pessoa << "]"; // * atras do m significa referenciar o objeto e não o endereço
+        os << "T: " << m.tempo << " P: " << m.potencia;
+        os << "[" << (m .pessoa == nullptr ? "null" : m.pessoa->nome) << "]";
         return os;
     }
 };
 
 int main() {
 
-    Pessoa pessoa("Joao", 20);
-    Motoca moto;
-
-    moto.inserir_pessoa(&pessoa);
-
-    cout << pessoa << endl;
-    cout << moto << endl;
-
+    Motoca motoca(1);
+    while (true)
+    {
+        string line;
+        getline(cin, line);
+        stringstream ss(line);
+        string cmd;
+        ss >> cmd;
+        
+        if (cmd == "end")
+        {
+            break;
+        }else if (cmd == "init")
+        {
+            int pot = 0;
+            ss >> pot;
+            motoca = Motoca(pot);
+        } else if (cmd == "show") 
+        {
+            cout << motoca << endl;
+        } else 
+            cout << "comando nao existe" << endl;
+        
+    }
     
-    return 0;
 }
