@@ -41,25 +41,27 @@ public:
     }
 
     static bool validate(vector<int> vet) {
-
-    int sum = 0;
-    for(int i = 0; i < 9; i++) 
-        sum += vet[i] * (10 - 1);
+        int sum = 0;
+        
+        for(int i = 0; i < 9; i++) 
+            sum += vet[i] * (10 - 1);
     
-    if (sum % 11 == 0 || sum % 11 == 1) {
-        if (vet[9] == 0) 
-            return true;
-        else    
-            return false;
-    } else {
-        if (vet[9] == (11 - (sum % 11)))
-            return true;
-        else
-            return false;
-    }
+        if (sum % 11 == 0 || sum % 11 == 1) 
+        {
+            if (vet[9] == 0) 
+                return true;
+            else    
+                return false;
+        } 
+        else 
+        {
+            if (vet[9] == (11 - (sum % 11)))
+                return true;
+            else
+                return false;
+        }
 
-
-}
+    }   
 
 };
 
@@ -68,6 +70,6 @@ public:
 int main() {
 
     CPF meucpf("123.456.789-09");
-
+    
 
 }
