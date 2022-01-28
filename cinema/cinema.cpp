@@ -1,121 +1,131 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <memory>
-#include <optional>
 
+class Cliente {
+    std::string nome;
+    std::string fone;
 
-using namespace std;
+public:
+    Cliente(std::string nome = "", std::string fone = "") : nome{nome}, fone{fone} {}
+     
+    friend std::ostream& operator<<(std::ostream& os, const Cliente& c) {
+        os << c.nome << ":" << c.fone;
+        return os;
+    }
 
-class Cliente{
-    private:
-        string nome;
-        string fone;
-    public:
-        Cliente(string nome = "", string fone = "") : nome{nome}, fone{fone} {}
-        friend ostream& operator<<(ostream& os, const Cliente& c) {
-            os << c.nome << ":" << c.fone;
-            return os;
-        }
-    
-        string getNome() {
-            return this -> nome;
-        }
+    void setNome(std::string nome) {
+        this -> nome = nome;
+    }
+
+    void setFone(std::string fone) {
+        this -> fone = fone;
+    } 
+
+    std::string getNome() {
+        return nome;
+    }
+
+    std::string getFone() {
+        return fone;
+    }
+ 
 };
 
-class Sala{
+class Cinema {
     private:
-        vector<shared_ptr<Cliente>> cliente;
+        std::vector<std::shared_ptr<Cliente>> assentos;
+
     public:
-        Sala(int quantidade = 0) : cliente(quantidade, nullptr) {
+        Cinema(int capacidade ) : assentos(capacidade, nullptr) {}
+
+        friend std::ostream& operator<<(std::ostream& os, const Cinema& c) {
+        os << "[ ";
+
+        for (auto assento : c.assentos) {
+            if (assento == nullptr) {
+                os << "- ";
+            } else {
+                os << *assento << " ";
+            }
         }
 
-        bool reservar(shared_ptr<Cliente> pessoa, int position) {
-            if(position < 0 or position >= (int) cliente.size()) {
-                cout << "cadeira nao existe" << endl;
-                return true;
-            }
-            for(int i = 0;  i < (int) cliente.size(); i++) {
-                if(cliente[i] == nullptr)
-                    continue;
-                if(cliente[i] -> getNome() == pessoa -> getNome()) {
-                    cout<<"cliente ja cadastrado com este nome"<<endl;
-                    return true;
-                }
-            }
-            if(cliente[position] != nullptr) 
-                return false;
+        os << "]\n";
 
-            cliente[position] = pessoa;
+        return os;
+    }
+
+    int procurarCliente(std::string nome) {
+        for (int i = 0; i < (int) assentos.size(); i++)
+            if (assentos[i] != nullptr && assentos[i] -> getNome() == nome) 
+                return i;
+        return -1;
+    }
+
+    bool reservar(std::string nome, std::string fone, int indice) {
+        if (indice < 0 || indice >= this -> assentos.size()) {
+            std::cout << "Assento inexistente" << '\n';
+            return false;
+        }
+        if (assentos[indice] != nullptr) {
+            std::cout << "Assento ocupado" << '\n';
+            return false;
+        }
+        if (procurarCliente(nome) != -1) {
+            std::cout << "Cliente ja esta no cinema" << '\n';
+            return false;
+        }   
+        if (this -> assentos[indice] == nullptr) {
+            this -> assentos[indice] = std::make_shared<Cliente>(nome, fone);
             return true;
         }
-
-    void cancelar(string nome) {
-       
-        for(int i = 0;  i < (int) cliente.size(); i++) {
-            if(cliente[i] == nullptr)
-                continue;
-            if(cliente[i] -> getNome() == nome) {
-                cliente[i] = nullptr;
-                return;
-            }
-        }
-            cout << "nao existe cliente com esse nome" << endl;
     }
 
-    friend ostream& operator<<(std::ostream& os, const Sala& s) {
-        os<<"[";
-        for (auto perspeson : s.cliente) {
-            if(person==nullptr)
-                os<<" -";
-            else
-                os << " " << *person;
+    void cancelar(std::string nome){
+        int indice = procurarCliente(nome);
+        if (indice == -1) {
+            std::cout << "Cliente nao encontrado" << '\n';
         }
-            os<<" ]";
-            return os;
+        else {
+            this -> assentos[indice] = nullptr;
         }
+    }
 };
 
-int main () {
+int main() {
+    Cinema cinema(0);
 
-    string cmd{};
-    Sala cinema;
-
-    while (cmd! = "end") {
-        cout << "$";
-        cin >> cmd;
+    while (true) {
+        std::string cmd;
+        std::cin >> cmd;
 
         if (cmd == "init") {
-            int valor;
-            
-            cin >> valor;
-            
-            Sala temp(valor);
-            
-            cinema = temp;
+            int capacidade;
+            std::cin >> capacidade;
+            cinema = Cinema(capacidade);
         }
-
         else if (cmd == "show") {
-            cout << cinema << endl;
+            std::cout << cinema << '\n';
         }
-
         else if (cmd == "reservar") {
-            string name;
-            string fone;
-            int position;
-            
-            cin >> name >> fone >> position;
-            
-            bool verificarReserva = cinema.reservar(make_shared<Cliente>(name, fone), position);
-            if(!verificarReserva) {
-                cout << "lugar ja esta reservado" << endl;
-            }
+            std::string nome {};
+            std::string fone {};
+            int indice;
+            std::cin >> nome >> fone >> indice;
+            cinema.reservar(nome, fone, indice);
         }
-
         else if (cmd == "cancelar") {
-            string name;
-            
-            cin >> name;
-            cinema.cancelar(name);
+            std::string nome {};
+            std::cin >> nome;
+            cinema.cancelar(nome);
+        }
+        else if (cmd == "end") {
+            break;
+        } 
+        else {
+            std::cout << "Comando invalido\n";
         }
     }
+    return 0;
 }
