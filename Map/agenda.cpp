@@ -73,15 +73,15 @@ public:
     }
 
     string getNome() {
-        return this->nome;
+        return this -> nome;
     }
 
     vector<Fone> getFones() {
-        return this->fone;
+        return this -> fone;
     }
 
     void setNome(string nome) {
-        this->nome = nome;
+        this -> nome = nome;
     }
 
     friend ostream& operator<<(ostream& os, const Contato& contato) {
@@ -103,28 +103,28 @@ public:
     Agenda() {}
 
     void addContato(Contato contato) {
-        auto it = this -> contatos.find(contato.getNome());
-        if (it == this -> contatos.end()) 
+        auto value = this -> contatos.find(contato.getNome());
+        if (value == this -> contatos.end()) 
             this -> contatos[contato.getNome()] = contato;
         else 
             for (Fone fone : contato.getFones()) 
-                it -> second.addFone(fone);
+                value -> second.addFone(fone);
             
         
     }
 
     Contato* getContato(string nome) {
-        auto it = this -> contatos.find(nome);
-            if (it != this->contatos.end()) 
-                return &it -> second;
+        auto value = this -> contatos.find(nome);
+            if (value != this->contatos.end()) 
+                return &value -> second;
         
             return nullptr;
     }
 
     void removeContato(string nome) {
-        auto it = this -> contatos.find(nome);
-        if (it != this -> contatos.end()) 
-            this -> contatos.erase(it);
+        auto value = this -> contatos.find(nome);
+        if (value != this -> contatos.end()) 
+            this -> contatos.erase(value);
         else 
             cout << "Contato inexistente" << endl;
         
@@ -132,7 +132,7 @@ public:
 
     vector<Contato> procurarContato(string value) {
         vector<Contato> resultado;
-        for (auto contato : this->contatos) {
+        for (auto contato : this -> contatos) {
             if (contato.first.find(value) != string::npos) {
                 resultado.push_back(contato.second);
             }
@@ -141,7 +141,7 @@ public:
     }
 
     map<string, Contato> getContatos() {
-        return this->contatos;
+        return this -> contatos;
     }
 
     friend ostream& operator<<(ostream& os,const Agenda& a) {

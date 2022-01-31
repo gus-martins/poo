@@ -2,6 +2,17 @@
     "files.associations": {
         "cstdlib": "cpp",
         "algorithm": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "memory_resource": "cpp",
+        "random": "cpp",
+        "istream": "cpp",
+        "cmath": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
     }
 }
