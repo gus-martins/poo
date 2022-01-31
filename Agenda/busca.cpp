@@ -22,6 +22,14 @@ public:
         return false;
     }
 
+    void setId(string id) {
+        this->id = id;
+    }
+
+    void setNumero(string numero) {
+        this->numero = numero;
+    }
+
     string getId() {
         return this->id;
     }
@@ -30,14 +38,6 @@ public:
         return this->numero;
     }
 
-    void setId(string id) {
-        this->id = id;
-    }
-
-    void setNumero(string numero) {
-        this->numero = numero;
-    }
-    
     friend ostream& operator<<(ostream& os, const Fone& f) {
         os << f.id << ":" << f.numero;
         return os;
