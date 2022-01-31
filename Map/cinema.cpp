@@ -18,21 +18,21 @@ public:
         return os;
     }
 
-    string getNome() {
-        return this->nome;
-    }
-
-    string getFone() {
-        return this->fone;
-    }
-
     void setNome(string nome) {
-        this->nome = nome;
+        this -> nome = nome;
     }
 
     void setFone(string fone) {
-        this->fone = fone;
-    }  
+        this -> fone = fone;
+    } 
+
+    string getNome() {
+        return this -> nome;
+    }
+
+    string getFone() {
+        return this -> fone;
+    } 
 };
 
 class Cinema {
@@ -56,7 +56,7 @@ public:
 
     bool reservar(string nome, string fone, int indice) {
         if (indice < 0 || indice >= this->assentos.size()) {
-            cout << "Assento inexistente" << '\n';
+            cout << "Assento inexistente" << endl;
             return false;
         }
         if (procurarCliente(nome) != -1) {
@@ -64,7 +64,7 @@ public:
             return false;
         }
         if (assentos[indice] != nullptr) {
-            cout << "Assento ocupado" << '\n';
+            cout << "Assento ocupado" << endl;
             return false;
         }
         this -> assentos[indice] = make_shared<Cliente>(nome, fone);
@@ -105,29 +105,33 @@ int main() {
 
         if (cmd == "init") {
             int capacidade;
-            cin >> capacidade;
-            cinema = Cinema(capacidade);
+                cin >> capacidade;
+                cinema = Cinema(capacidade);
         }
-        else if (cmd == "show") {
-            cout << cinema << '\n';
-        }
+
         else if (cmd == "reservar") {
             string nome {};
             string fone {};
             int indice;
-            cin >> nome >> fone >> indice;
-            cinema.reservar(nome, fone, indice);
+                cin >> nome >> fone >> indice;
+                cinema.reservar(nome, fone, indice);
         }
+
         else if (cmd == "cancelar") {
             string nome {};
-            cin >> nome;
-            cinema.cancelar(nome);
+                cin >> nome;
+                cinema.cancelar(nome);
         }
+
+        else if (cmd == "show") {
+            cout << cinema << endl;
+        }
+
         else if (cmd == "end") {
             break;
         } 
         else {
-            cout << "Comando invalido\n";
+            cout << "Comando invalido" << endl;
         }
     }
     return 0;
