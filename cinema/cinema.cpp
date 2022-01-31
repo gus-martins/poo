@@ -3,44 +3,46 @@
 #include <string>
 #include <memory>
 
+using namespace std;
 class Cliente {
-    std::string nome;
-    std::string fone;
+    string nome;
+    string fone;
 
 public:
-    Cliente(std::string nome = "", std::string fone = "") : nome{nome}, fone{fone} {}
+    Cliente(string nome = "", string fone = "") : nome{nome}, fone{fone} {}
      
-    friend std::ostream& operator<<(std::ostream& os, const Cliente& c) {
+    friend ostream& operator<<(ostream& os, const Cliente& c) {
         os << c.nome << ":" << c.fone;
         return os;
     }
 
-    void setNome(std::string nome) {
+    void setNome(string nome) {
         this -> nome = nome;
     }
 
-    void setFone(std::string fone) {
+    void setFone(string fone) {
         this -> fone = fone;
     } 
 
-    std::string getNome() {
+    string getNome() {
         return nome;
     }
 
-    std::string getFone() {
+    string getFone() {
         return fone;
     }
  
 };
 
+
 class Cinema {
     private:
-        std::vector<std::shared_ptr<Cliente>> assentos;
+        vector<shared_ptr<Cliente>> assentos;
 
     public:
         Cinema(int capacidade ) : assentos(capacidade, nullptr) {}
 
-        friend std::ostream& operator<<(std::ostream& os, const Cinema& c) {
+        friend ostream& operator<<(ostream& os, const Cinema& c) {
         os << "[ ";
 
         for (auto assento : c.assentos) {
@@ -51,41 +53,44 @@ class Cinema {
             }
         }
 
-        os << "]\n";
+        os << endl;
 
         return os;
     }
 
-    int procurarCliente(std::string nome) {
+
+    int procurarCliente(string nome) {
         for (int i = 0; i < (int) assentos.size(); i++)
             if (assentos[i] != nullptr && assentos[i] -> getNome() == nome) 
                 return i;
         return -1;
     }
 
-    bool reservar(std::string nome, std::string fone, int indice) {
+
+    bool reservar(string nome, string fone, int indice) {
         if (indice < 0 || indice >= this -> assentos.size()) {
-            std::cout << "Assento inexistente" << '\n';
-            return false;
-        }
-        if (assentos[indice] != nullptr) {
-            std::cout << "Assento ocupado" << '\n';
+            cout << "Assento inexistente" << endl;
             return false;
         }
         if (procurarCliente(nome) != -1) {
-            std::cout << "Cliente ja esta no cinema" << '\n';
+            cout << "Cliente ja esta no cinema" << endl;
+            return false;
+        }
+        if (assentos[indice] != nullptr) {
+            cout << "Assento ocupado" << endl;
             return false;
         }   
         if (this -> assentos[indice] == nullptr) {
-            this -> assentos[indice] = std::make_shared<Cliente>(nome, fone);
+            this -> assentos[indice] = make_shared<Cliente>(nome, fone);
             return true;
         }
     }
 
-    void cancelar(std::string nome){
+
+    void cancelar(string nome){
         int indice = procurarCliente(nome);
         if (indice == -1) {
-            std::cout << "Cliente nao encontrado" << '\n';
+            cout << "Cliente nao encontrado" << endl;
         }
         else {
             this -> assentos[indice] = nullptr;
@@ -93,38 +98,40 @@ class Cinema {
     }
 };
 
+
+
 int main() {
     Cinema cinema(0);
 
     while (true) {
-        std::string cmd;
-        std::cin >> cmd;
+        string cmd;
+        cin >> cmd;
 
         if (cmd == "init") {
             int capacidade;
-            std::cin >> capacidade;
-            cinema = Cinema(capacidade);
-        }
-        else if (cmd == "show") {
-            std::cout << cinema << '\n';
+                cin >> capacidade;
+                cinema = Cinema(capacidade);
         }
         else if (cmd == "reservar") {
-            std::string nome {};
-            std::string fone {};
+            string nome {};
+            string fone {};
             int indice;
-            std::cin >> nome >> fone >> indice;
-            cinema.reservar(nome, fone, indice);
+                cin >> nome >> fone >> indice;
+                cinema.reservar(nome, fone, indice);
         }
         else if (cmd == "cancelar") {
-            std::string nome {};
-            std::cin >> nome;
-            cinema.cancelar(nome);
+            string nome {};
+                cin >> nome;
+                cinema.cancelar(nome);
+        }
+        else if (cmd == "show") {
+            cout << cinema << endl;
         }
         else if (cmd == "end") {
             break;
         } 
         else {
-            std::cout << "Comando invalido\n";
+            cout << "Comando invalido" << endl;
         }
     }
     return 0;
