@@ -20,14 +20,6 @@ public:
         }
         return false;
     }
-    
-    string getId() {
-        return this -> id;
-    }
-
-    string getNumero() {
-        return this -> numero;
-    }
 
     void setId(string id) {
         this -> id = id;
@@ -35,6 +27,14 @@ public:
 
     void setNumero(string numero) {
         this->numero = numero;
+    }
+    
+    string getId() {
+        return this -> id;
+    }
+
+    string getNumero() {
+        return this -> numero;
     }
 
     friend ostream &operator<<(ostream& os, const Fone& f) {
@@ -55,7 +55,7 @@ public:
             this -> fone.push_back(fone);
          
          else 
-            cout << "Numero invalido" << '\n';
+            cout << "Numero invalido" << endl;
         
     }
 
@@ -63,7 +63,7 @@ public:
         if (indice >= 0 && indice < (int) this -> fone.size())
             this -> fone.erase(this -> fone.begin() + indice);
         else 
-            cout << "erro ao tentar remover numero" << '\n';
+            cout << "erro ao tentar remover numero" << endl;
         
     }
 
@@ -86,7 +86,7 @@ public:
             os << " [" << i << ":" << c.fone[i] << "]";
         }
 
-        os << '\n';
+        os << endl;
         return os;
     }
 };
@@ -106,9 +106,6 @@ int main() {
             ss >> nome;
             contato.setNome(nome);
         }
-        else if (cmd == "show") {
-            cout << contato;
-        }
         else if (cmd == "add") {
             string id {};
             string numero {};
@@ -120,11 +117,14 @@ int main() {
             ss >> indice;
             contato.removeFone(indice);
         }
+        else if (cmd == "show") {
+            cout << contato;
+        }
         else if (cmd == "end") {
             break;
         }
         else {
-            cout << "Comando invalido" << '\n';
+            cout << "Comando invalido" << endl;
         }
     }
 }
