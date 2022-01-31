@@ -63,7 +63,7 @@ public:
         
     }
 
-    void rmFone(int indice){
+    void removeFone(int indice){
         if (indice >= 0 && indice < (int) this->fone.size()) 
             this->fone.erase(this->fone.begin() + indice);
         else
