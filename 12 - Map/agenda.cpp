@@ -67,7 +67,7 @@ public:
         if (indice >= 0 && indice < (int) this->fone.size()) 
             this->fone.erase(this->fone.begin() + indice);
         else
-            cout << "erro, indice invalido" << endl;
+            cout << "erro ao tentar remover o numero" << endl;
         
     }
 
@@ -102,37 +102,37 @@ public:
     Agenda() {}
 
     void addContato(Contato contato) {
-        auto value = this -> contatos.find(contato.getNome());
-        if (value == this -> contatos.end()) 
+        auto it = this -> contatos.find(contato.getNome());
+        if (it == this -> contatos.end()) 
             this -> contatos[contato.getNome()] = contato;
         else 
             for (Fone fone : contato.getFones()) 
-                value -> second.addFone(fone);
+                it -> second.addFone(fone);
             
         
     }
 
     Contato* getContato(string nome) {
-        auto value = this -> contatos.find(nome);
-            if (value != this->contatos.end()) 
-                return &value -> second;
+        auto it = this -> contatos.find(nome);
+            if (it != this->contatos.end()) 
+                return &it -> second;
         
             return nullptr;
     }
 
     void removeContato(string nome) {
-        auto value = this -> contatos.find(nome);
-        if (value != this -> contatos.end()) 
-            this -> contatos.erase(value);
+        auto it = this -> contatos.find(nome);
+        if (it != this -> contatos.end()) 
+            this -> contatos.erase(it);
         else 
             cout << "Contato inexistente" << endl;
         
     }
 
-    vector<Contato> procurarContato(string value) {
+    vector<Contato> procurarContato(string it) {
         vector<Contato> resultado;
         for (auto contato : this -> contatos) {
-            if (contato.first.find(value) != string::npos) {
+            if (contato.first.find(it) != string::npos) {
                 resultado.push_back(contato.second);
             }
         }

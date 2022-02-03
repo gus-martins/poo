@@ -60,11 +60,11 @@ public:
         
     }
 
-    void removeFone(int value){
-        if (value >= 0 && value < (int) this->fone.size()) 
-            this -> fone.erase(this->fone.begin() + value);
+    void removeFone(int indice){
+        if (indice >= 0 && indice < (int) this->fone.size()) 
+            this -> fone.erase(this->fone.begin() + indice);
         else 
-            cout << "erro, indice invalido" << endl;
+            cout << "erro ao tentar remover o numero" << endl;
         
     }
 

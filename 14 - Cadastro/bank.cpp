@@ -22,8 +22,8 @@ protected:
 public:
     Account(int id, std::string clientId)
     {
-        this->id = id;
-        this->clientId = clientId;
+        this -> id = id;
+        this -> clientId = clientId;
     }
 
     virtual ~Account() {}
